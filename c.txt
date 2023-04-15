@@ -1,7 +1,7 @@
 #include <Servo.h>
 Servo myservo; 
-const int trigPin = 8; 
-const int echoPin = 9;
+const int trigPin = 9; 
+const int echoPin = 8;
 long int duration,inches,cm;
 int pos = 0;   
 int enA=3;
@@ -12,7 +12,7 @@ const int in3=11;
 const int in4=10;
 void setup() { 
  Serial.begin(9600); 
- myservo.attach(7);
+ myservo.detach();
 } 
 void loop() 
 { 
@@ -27,12 +27,12 @@ void loop()
    myservo.detach();
    ultrasonic(5);
  }
-    analogWrite(enB,90);
-    digitalWrite(in1,LOW);
-    digitalWrite(in2,HIGH);
-    analogWrite(enA,140);
-    digitalWrite(in3,HIGH);
-    digitalWrite(in4,LOW);
+    analogWrite(enB,150);
+    digitalWrite(in1,HIGH);
+    digitalWrite(in2,LOW);
+    analogWrite(enA,200);
+    digitalWrite(in3,LOW);
+    digitalWrite(in4,HIGH);
   
 } 
 long microsecondsToCentimeters(long microseconds)
@@ -42,16 +42,15 @@ long microsecondsToCentimeters(long microseconds)
 void servo(int)
 {
   myservo.attach(7);
-  for (pos =180; pos >= 0; pos -= 1) { 
+  for (pos = 0; pos <= 90; pos += 1) { 
     myservo.write(pos);              
-    delay(200);                    
-   } 
-  for (pos = 0; pos <= 180; pos += 1) { 
-    myservo.write(pos);              
-    delay(100);   
+    delay(30);  
     break;     
    }
-   
+  for (pos =90; pos >= 0; pos -= 1) { 
+    myservo.write(pos);              
+    delay(30);                    
+   } 
    myservo.detach();
 }
 void ultrasonic(int)
